@@ -3,7 +3,7 @@
         <table class="table" id="transactions-table">
             <thead>
             <tr>
-                <th>User Id</th>
+                <th>User Name</th>
                 <th>Qrcode Owner Id</th>
                 <th>Qrcode Id</th>
                 <th>Payment Method</th>
@@ -16,7 +16,8 @@
             <tbody>
             @foreach($transactions as $transaction)
                 <tr>
-                    <td>{{ $transaction->user_id }}</td>
+                    <td><a href="/users/{{$transaction->user['id']}}">{{$transaction->user['name']}}</a></td>
+                    <td>{{$transaction->user_id}}</td>
                     <td>{{ $transaction->qrcode_owner_id }}</td>
                     <td>{{ $transaction->qrcode_id }}</td>
                     <td>{{ $transaction->payment_method }}</td>
