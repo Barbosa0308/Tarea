@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
  use Illuminate\Database\Eloquent\SoftDeletes;
+ use Illuminate\Database\Eloquent\Relations\BelongsTo;
+ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @OA\Schema(
  *      schema="Qrcode",
@@ -131,6 +133,21 @@ use Illuminate\Database\Eloquent\Model;
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
+       /**
+     * Get the user that owns the one transacción.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+       /**
+     * Get the qrcodes a un usuario
+     */
+    public function trasaction1(): HasMany
+    {
+        return $this->hasMany(Trasaction::class);
+    }
 
     
 }

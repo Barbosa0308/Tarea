@@ -29,18 +29,25 @@
 </div>
 
 <div class="col-sm-12">
-<table>
+
+   <table class="table table-dark table-hover">
         <thead>
             <tr>
                 <th>transactions Id</th>
                 <th>Amount</th>
+                <th>Produto</th>
+                <th>Payment Method</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($user->transactions as $transaction)
                 <tr>
                     <td>{{ $transaction->id }}</td>
-                    <td>${{ $transaction->amount }}</td>
+                    <td>{{ $transaction->amount }}</td>
+                    <td>{{ $transaction->qrcode['product_name'] }} <img src="../{{ $transaction->qrcode['product_url_image_Path'] }}" width="250px" ></td>
+                    <td>{{ $transaction->payment_method}}</td>
+                    <td>{{ $transaction->status}}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -25,7 +25,7 @@
 <!-- Product Url Field -->
 <div class="col-sm-12">
     {!! Form::label('product_url', 'Product Url:') !!}
-    <p><a href>{{ $qrcode->product_url }}</a></p>
+    <a href>{{ $qrcode->product_url }}</a></p>
 </div>
 
 <!-- Product Url Image Path Field -->

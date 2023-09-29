@@ -135,5 +135,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     {
         return $this->hasMany(Transaction::class);
     }
+
+      /**
+     * Get the qrcodes a un usuario
+     */
+    public function qrcodes(): HasMany
+    {
+        return $this->hasMany(Qrcode::class);
+    }
     
 }
