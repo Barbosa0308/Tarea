@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @OA\Schema(
  *      schema="User",
- *      required={"name","email","password"},
+ *      required={"rol_id","name","email","password"},
  *      @OA\Property(
  *          property="name",
  *          description="",
@@ -62,13 +68,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *          nullable=true,
  *          type="string",
  *          format="date-time"
+ *      ),
+ *      @OA\Property(
+ *          property="deleted_at",
+ *          description="",
+ *          readOnly=true,
+ *          nullable=true,
+ *          type="string",
+ *          format="date-time"
  *      )
  * )
  */class User extends Model implements Authenticatable
 {
-    public $table = 'users';
+     use SoftDeletes;    public $table = 'users';
 
     public $fillable = [
+        'rol_id',
         'name',
         'email',
         'email_verified_at',
@@ -85,63 +100,132 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     ];
 
     public static array $rules = [
+        'rol_id' => 'required',
         'name' => 'required|string|max:255',
         'email' => 'required|string|max:255',
         'email_verified_at' => 'nullable',
         'password' => 'required|string|max:255',
         'remember_token' => 'nullable|string|max:100',
         'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'updated_at' => 'nullable',
+        'deleted_at' => 'nullable'
     ];
+    public function getAuthIdentifierName(){
 
-    public function getAuthIdentifierName()
-     {
-         return 'id'; // Puedes cambiar 'id' al nombre de la columna que se utiliza como identificador en tu tabla de usuarios.
-     }
- 
-     public function getAuthIdentifier()
-     {
-         return $this->getKey();
-     }
- 
-     public function getAuthPassword()
-     {
-         return $this->password;
-     }
- 
-     public function getRememberToken()
-     {
-         return $this->remember_token;
-     }
- 
-     public function setRememberToken($value)
-     {
-         $this->remember_token = $value;
-     }
- 
-     public function getRememberTokenName()
-     {
-         return 'remember_token';
-     }
-     public function setPasswordAttribute($value)
-     {
-         $this->attributes['password'] = Hash::make($value);
-     }
- 
-     /**
-     * Get the transacciones for the qrcodes.
-     */
-    public function transactions(): HasMany
-    {
-        return $this->hasMany(Transaction::class);
-    }
+        return 'id'; // Puedes cambiar 'id' al nombre de la columna que se utiliza como identificador en tu tabla de usuarios.
 
-      /**
-     * Get the qrcodes a un usuario
-     */
-    public function qrcodes(): HasMany
-    {
-        return $this->hasMany(Qrcode::class);
-    }
-    
+   }
+
+
+
+
+
+   public function getAuthIdentifier(){
+
+        return $this->getKey();
+
+   }
+
+
+
+   public function getAuthPassword(){
+
+        return $this->password;
+
+   }
+
+
+
+   public function getRememberToken(){
+
+        return $this->remember_token;
+
+   }
+
+
+
+   public function setRememberToken($value){
+
+        $this->remember_token = $value;
+
+   }
+
+
+
+   public function getRememberTokenName(){
+
+        return 'remember_token';
+
+   }
+
+
+
+   public function setPasswordAttribute($value)
+
+   {
+
+      if(Hash::needsRehash($value))
+
+          $password = Hash::make($value);
+
+
+
+      $this->attributes['password'] = $value;
+
+   }
+
+
+
+
+
+   /**
+
+    *
+
+    * DE USER A TRANSACTION
+
+    * Get the transactions for one qrcode.
+
+
+
+    */
+
+   public function transactions(): HasMany
+
+
+
+   {
+
+       return $this->hasMany(Transaction::class);
+
+   }
+
+   /**
+
+    * DE USER A QRCODE
+
+    * Get the qrcodes for one user.
+
+    */
+
+   public function qrcodes(): HasMany
+
+
+
+   {
+
+       return $this->hasMany(Qrcode::class);
+
+   }
+
+
+
+   public function roles(): BelongsTo{
+
+       return $this->belongsTo(Rol::class);
+
+
+
+   }
+
 }

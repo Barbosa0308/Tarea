@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
- use Illuminate\Database\Eloquent\SoftDeletes;
- use Illuminate\Database\Eloquent\Relations\BelongsTo;
- use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @OA\Schema(
  *      schema="Qrcode",
@@ -144,9 +144,9 @@ use Illuminate\Database\Eloquent\Model;
        /**
      * Get the qrcodes a un usuario
      */
-    public function trasaction1(): HasMany
+    public function transaction1(): HasMany
     {
-        return $this->hasMany(Trasaction::class);
+        return $this->hasMany(Transaction::class);
     }
 
     

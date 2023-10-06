@@ -1,7 +1,7 @@
 <!-- User Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('user_id', 'User Id:') !!}
-    <p>{{ $transaction->user_id }}</p>
+    {!! Form::label('user_id', 'Nombre y Correo:') !!}
+    <p>{{ $transaction->user['name']}}</p>
 </div>
 
 <!-- Qrcode Owner Id Field -->

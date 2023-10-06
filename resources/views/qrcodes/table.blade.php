@@ -19,12 +19,12 @@
             @foreach($qrcodes as $qrcode)
                 <tr>
                     <td>{{ $qrcode->user_id }}</td>
-                    <td><a href>{{ $qrcode->website }}</a></td>
+                    <td><button type="button" class="btn btn-outline-success"><a href>{{ $qrcode->website }}</a></button></td>
                     <td>{{ $qrcode->company_name }}</td>
                     <td>{{ $qrcode->product_name }}</td>
-                    <td><a href>{{ $qrcode->product_url }}</a></td>
+                    <td><button type="button" class="btn btn-outline-success"><a href>{{ $qrcode->product_url }}</a></buttom></td>
                     <td><img src="{{asset($qrcode ->product_url_image_Path)}}" width="250px"></td>
-                    <td><a href>{{ $qrcode->callback_url }}</a></td>
+                    <td><button type="button" class="btn btn-outline-primary"><a href>{{ $qrcode->callback_url }}</butto></a></td>
                     <td><img src="{{asset($qrcode ->qrcode_path)}}" with="250PX" ></td>
                     <td>{{ $qrcode->amount }}</td>
                     <td  style="width: 120px">

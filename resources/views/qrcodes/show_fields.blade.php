@@ -1,7 +1,7 @@
 <!-- User Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('user_id', 'User Id:') !!}
-    <p>{{ $qrcode->user_id }}</p>
+    {!! Form::label('name', 'Nombre del propietario:') !!}
+    <p><button type="button" class="btn btn-outline-dark"><a href="/users/{{$qrcode->user['id']}}">{{ $qrcode->user['name']}}</a></buttom></p>
 </div>
 
 <!-- Website Field -->
@@ -58,3 +58,38 @@
     <p>{{ $qrcode->amount }}</p>
 </div>
 
+<h1>TRANSACCIONES DE ESTE PRODUCTO </h1>
+
+<h1>TRANSACCIONES DE ESTE USUARIO</h1>
+<div class="col-sm-12">
+<table class="table table-striped-columns">
+        <thead>
+            <tr>
+                <th>transactions Id</th>
+                <th>Amount</th>
+                <th>Payment Method</th>
+                <th>Status</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach ($qrcode->transaction1 as $transaction)
+            <tr>
+                <td>{{ $transaction->id }}</td>
+                <td>${{ $transaction->amount }}</td>
+                <td>{{ $transaction->payment_method }}</td>
+                <td>{{ $transaction->status }}</td>
+                <td>{{ $transaction->status }}</td>
+            </tr>
+        @endforeach    
+        @php $suma=0; @endphp <td></td>
+            <th>
+                TOTAL AMOUNT:$ @foreach ($qrcode->transaction1 as $transactions )
+                @php
+                $suma += $transactions->amount;
+                @endphp
+                @endforeach {{$suma}}
+            </th>
+        </tbody>
+    </table>
+</div>
